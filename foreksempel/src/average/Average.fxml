@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
-<VBox xmlns:fx="http://javafx.com/fxml/1"
-	fx:controller="average.AverageController">
-	<TextField fx:id="input" promptText="Fyll inn et tall"/>
-	<Button text="Ta inn tall" onAction="#handleClick"/>
-	<Text fx:id="output" text="ingenting ennå"/>
+<VBox xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/9" fx:controller="average.AverageController">
+	<TextField fx:id="input" promptText="Fyll inn et tall" />
+	<Button onAction="#handleClick" text="Gi tallet til Average-objektet"/>
+	<Text fx:id="output" text="ingenting ennå" />
 </VBox>

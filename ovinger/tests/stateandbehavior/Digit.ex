@@ -34,25 +34,4 @@
       </tasks>
     </parts>
   </exercise:Exercise>
-  <exercise:ExerciseProposals exercise="/0">
-    <proposals exercisePart="/0/@parts.0">
-      <proposals xsi:type="jdt:JdtSourceEditProposal" question="/0/@parts.0/@tasks.0/@q" answer="/0/@parts.0/@tasks.0/@a"/>
-      <proposals xsi:type="jdt:JdtLaunchProposal" question="/0/@parts.0/@tasks.1/@q" answer="/0/@parts.0/@tasks.1/@a"/>
-      <proposals xsi:type="junit:JunitTestProposal" question="/0/@parts.0/@tasks.2/@q" answer="/0/@parts.0/@tasks.2/@a"/>
-    </proposals>
-    <proposals exercisePart="/0/@parts.1">
-      <proposals xsi:type="workbench:DebugEventProposal" question="/0/@parts.1/@tasks.0/@q" answer="/0/@parts.1/@tasks.0/@a"/>
-      <proposals xsi:type="workbench:CommandExecutionProposal" question="/0/@parts.1/@tasks.1/@q" answer="/0/@parts.1/@tasks.1/@a"/>
-      <proposals xsi:type="workbench:CommandExecutionProposal" question="/0/@parts.1/@tasks.2/@q" answer="/0/@parts.1/@tasks.2/@a"/>
-      <proposals xsi:type="workbench:PartTaskProposal" question="/0/@parts.1/@tasks.3/@q" answer="/0/@parts.1/@tasks.3/@a">
-        <attempts xsi:type="workbench:PartTaskEvent" timestamp="1515864923870" elementId="org.eclipse.debug.ui.VariableView" action="activated"/>
-        <attempts xsi:type="workbench:PartTaskEvent" timestamp="1515864927894" elementId="org.eclipse.debug.ui.VariableView" action="activated"/>
-        <attempts xsi:type="workbench:PartTaskEvent" timestamp="1515864935187" elementId="org.eclipse.debug.ui.VariableView" action="activated"/>
-        <attempts xsi:type="workbench:PartTaskEvent" timestamp="1515864980163" elementId="org.eclipse.debug.ui.VariableView" action="activated"/>
-        <attempts xsi:type="workbench:PartTaskEvent" timestamp="1515864981538" elementId="org.eclipse.debug.ui.VariableView" action="activated"/>
-        <attempts xsi:type="workbench:PartTaskEvent" timestamp="1515864989031" elementId="org.eclipse.debug.ui.VariableView" action="activated"/>
-        <attempts xsi:type="workbench:PartTaskEvent" timestamp="1515865034366" elementId="org.eclipse.debug.ui.VariableView" action="activated"/>
-      </proposals>
-    </proposals>
-  </exercise:ExerciseProposals>
 </xmi:XMI>

@@ -34,7 +34,7 @@ public class Student {
 
 	public void setAge(int age) {
 		if (age < 0) {
-			throw new IllegalArgumentException("Age must be more than 0");
+			throw new IllegalArgumentException("Age can't be negative");
 		}
 		this.age = age;
 	}
@@ -56,9 +56,6 @@ public class Student {
 		Student s2 = new Student("Kari");
 		
 		s1.setGender('m');
-		s2.setGender('v');
-		
-		System.out.println(s1.name + ", " + s1.studentId);
-		System.out.println(s2.name + ", " + s2.studentId);
+		s2.setGender('v'); // Utløser et unntak
 	}
 }

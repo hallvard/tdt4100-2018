@@ -54,10 +54,33 @@ public class PlayList {
 	}
 	
 	public void addTrack(Track track) {
+		int currentPlayLength = getPlayLength();
+		if (currentPlayLength + track.getPlayLength() > maxLength) {
+			throw new IllegalArgumentException("For langt spor");
+		}
 		tracks.add(track);
 	}
 	
 	public void removeTrack(Track track) {
 		tracks.remove(track);
+	}
+	
+	public int getPlayLength() {
+		int sum = 0;
+		for (Track track : tracks) {
+			sum = sum + track.getPlayLength();
+		}
+		return sum;
+	}
+	
+	public static void main(String[] args) {
+		PlayList pl = new PlayList(5 * 60);
+		Track t1 = new Track(), t2 = new Track();
+		t1.setLength(100);
+		t2.setLength(200);
+		pl.addTrack(t1);
+		pl.addTrack(t2);
+		t2.setLength(300);
+		System.out.println(pl.getPlayLength());
 	}
 }

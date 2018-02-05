@@ -61,6 +61,9 @@ public class PlayList {
 	}
 	
 	public void addTrack(Track track) {
+		if (track.getPlayList() != null) {
+			throw new IllegalStateException("Kan ikke putte spor i mer enn én spilleliste, eller flere ganger i samme");
+		}
 		checkPlayLength(track.getPlayLength());
 		tracks.add(track);
 		track.setPlayList(this);
@@ -85,8 +88,8 @@ public class PlayList {
 		t1.setLength(100);
 		t2.setLength(150);
 		pl.addTrack(t1);
-		pl.addTrack(t2);
-		t2.setLength(200);
+		pl.addTrack(t1);
+		t1.setLength(200);
 		System.out.println(pl.getPlayLength());
 	}
 }

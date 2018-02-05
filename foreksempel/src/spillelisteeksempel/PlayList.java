@@ -52,17 +52,23 @@ public class PlayList {
 	public int indexOfTrack(Track track) {
 		return tracks.indexOf(track);
 	}
+
+	void checkPlayLength(int delta) {
+		int currentPlayLength = getPlayLength();
+		if (currentPlayLength + delta > maxLength) {
+			throw new IllegalArgumentException("For lang spilletid, " + (currentPlayLength + delta) + " > " + maxLength);
+		}
+	}
 	
 	public void addTrack(Track track) {
-		int currentPlayLength = getPlayLength();
-		if (currentPlayLength + track.getPlayLength() > maxLength) {
-			throw new IllegalArgumentException("For langt spor");
-		}
+		checkPlayLength(track.getPlayLength());
 		tracks.add(track);
+		track.setPlayList(this);
 	}
 	
 	public void removeTrack(Track track) {
 		tracks.remove(track);
+		track.setPlayList(null);
 	}
 	
 	public int getPlayLength() {
@@ -77,10 +83,10 @@ public class PlayList {
 		PlayList pl = new PlayList(5 * 60);
 		Track t1 = new Track(), t2 = new Track();
 		t1.setLength(100);
-		t2.setLength(200);
+		t2.setLength(150);
 		pl.addTrack(t1);
 		pl.addTrack(t2);
-		t2.setLength(300);
+		t2.setLength(200);
 		System.out.println(pl.getPlayLength());
 	}
 }

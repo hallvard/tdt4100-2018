@@ -1,4 +1,4 @@
-package objectstructures;
+package game;
 
 
 import javafx.fxml.FXML;

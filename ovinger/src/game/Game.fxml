@@ -8,7 +8,7 @@
 <?import javafx.shape.*?>
 
 
-<HBox prefHeight="419.0" prefWidth="434.0" spacing="15" style="-fx-padding: 10px 10px 10px 10px" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="objectstructures.GameController">
+<HBox prefHeight="419.0" prefWidth="434.0" spacing="15" style="-fx-padding: 10px 10px 10px 10px" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="game.GameController">
    <children>
       <SplitPane dividerPositions="0.21158690176322417" orientation="VERTICAL" prefHeight="393.0" prefWidth="438.0">
         <items>

@@ -58,4 +58,60 @@ public class Folder {
 		}
 		this.name = name;
 	}
+	
+	public boolean contains(Folder folder) {
+		if (folder == this) {
+			return true;
+		} else if (folder == null) {
+			return false;
+		} else {
+			return this.contains(folder.parent);
+		}
+	}
+	
+	public Object findFirst(String pattern) {
+		for (Folder folder : folders) {
+			if (matchesName(folder.getName(), pattern)) {
+				return folder;
+			}
+		}
+		for (File file : files) {
+			if (matchesName(file.getName(), pattern)) {
+				return file;
+			}
+		}
+		for (Folder folder : folders) {
+			Object found = folder.findFirst(pattern);
+			if (found != null) {
+				return found;
+			}
+		}
+		return null;
+	}
+	
+	public List<Object> findAll(String pattern) {
+		List<Object> result = new ArrayList<>();
+		findAll(pattern, result);
+		return result;
+	}
+	
+	private void findAll(String pattern, List<Object> result) {
+		for (Folder folder : folders) {
+			if (matchesName(folder.getName(), pattern)) {
+				result.add(folder);
+			}
+		}
+		for (File file : files) {
+			if (matchesName(file.getName(), pattern)) {
+				result.add(file);
+			}
+		}
+		for (Folder folder : folders) {
+			folder.findAll(pattern, result);
+		}
+	}
+
+	private boolean matchesName(String name, String pattern) {
+		return pattern.equals(name);
+	}
 }

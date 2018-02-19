@@ -2,6 +2,7 @@ package mappeeksempel;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Predicate;
 
 public class Folder {
 
@@ -89,25 +90,42 @@ public class Folder {
 		return null;
 	}
 	
-	public List<Object> findAll(String pattern) {
+	public List<Object> findAll(FindCriterion fc) {
 		List<Object> result = new ArrayList<>();
-		findAll(pattern, result);
+		findAll(fc, result);
 		return result;
 	}
 	
-	private void findAll(String pattern, List<Object> result) {
+	private void findAll(FindCriterion fc, List<Object> result) {
 		for (Folder folder : folders) {
-			if (matchesName(folder.getName(), pattern)) {
+			if (fc.keepFolder(folder)) {
 				result.add(folder);
 			}
 		}
 		for (File file : files) {
-			if (matchesName(file.getName(), pattern)) {
+			if (fc.keepFile(file)) {
 				result.add(file);
 			}
 		}
 		for (Folder folder : folders) {
-			folder.findAll(pattern, result);
+			folder.findAll(fc, result);
+		}
+	}
+
+	public List<File> findAllFiles(Predicate<File> pred) {
+		List<File> result = new ArrayList<>();
+		findAllFiles(pred, result);
+		return result;
+	}
+	
+	private void findAllFiles(Predicate<File> pred, List<File> result) {
+		for (File file : files) {
+			if (pred.test(file)) {
+				result.add(file);
+			}
+		}
+		for (Folder folder : folders) {
+			folder.findAllFiles(pred, result);
 		}
 	}
 

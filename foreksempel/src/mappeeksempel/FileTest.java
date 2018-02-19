@@ -32,8 +32,30 @@ public class FileTest extends TestCase {
 	
 	public void testFindAll() {
 		File grades = new File("Grades", folder105);
-		List<Object> findAll = teaching.findAll("Grades");
-		assertEquals(1, findAll.size());
-		assertSame(grades, findAll.get(0));
+		List<Object> findAllFiles = teaching.findAll(new FilesOnly());
+		assertEquals(1, findAllFiles.size());
+		assertSame(grades, findAllFiles.get(0));
+
+		List<Object> findAllFolder = teaching.findAll(new FoldersOnly());
+		assertEquals(1, findAllFolder.size());
+		assertSame(folder105, findAllFolder.get(0));
+	}
+	
+	public void testFindAllFiles() {
+		File grades = new File("Grades.text", folder105);
+		List<File> findAllFiles1 = teaching.findAllFiles(new FileNamePredicate("Grades.text"));
+		assertEquals(1, findAllFiles1.size());
+		assertSame(grades, findAllFiles1.get(0));
+
+		List<File> findAllFiles2 = teaching.findAllFiles(new FileNamePredicate("Grades", null));
+		assertEquals(1, findAllFiles2.size());
+		assertSame(grades, findAllFiles2.get(0));
+
+		List<File> findAllFiles3 = teaching.findAllFiles(new FileNamePredicate(null, "text"));
+		assertEquals(1, findAllFiles3.size());
+		assertSame(grades, findAllFiles3.get(0));
+		
+		List<File> findAllFiles4 = teaching.findAllFiles(new FileNamePredicate("xyz"));
+		assertEquals(0, findAllFiles4.size());
 	}
 }

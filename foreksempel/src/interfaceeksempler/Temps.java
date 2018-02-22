@@ -8,5 +8,6 @@ public class Temps {
 	public List<TempData[]> tempArrays = new ArrayList<TempData[]>();
 
 	public void addTempArray(TempData[] tempDatas) {
+		tempArrays.add(tempDatas);
 	}
 }

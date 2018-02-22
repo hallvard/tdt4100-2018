@@ -7,7 +7,7 @@ public class TempData {
 	public final double temp;
 	public final LocalDateTime timestamp;
 
-	public TempData(int temp, LocalDateTime timestamp) {
+	public TempData(double temp, LocalDateTime timestamp) {
 		this.temp = temp;
 		this.timestamp = timestamp;
 	}

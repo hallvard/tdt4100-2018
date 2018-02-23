@@ -1,10 +1,18 @@
-package interfaceeksempler;
+package interfaceeksempler3;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class Steps {
+/*
+ * Klasse som samler mange skrittellingsmålinger i en to-nivå-struktur.
+ */
+public class Steps implements DataProcessor {
 
+	/*
+	 * En liste av liste av målepunkter.
+	 * De "indre" listene er segmenter som f.eks. tilsvarer en tur.
+	 * Hvert målepunkt kan f.eks. være skrittellinger for ca. hvert minutt.
+	 */
 	public List<List<StepData>> stepSegments = new ArrayList<List<StepData>>();
 
 	public void startNewSegment() {
@@ -18,22 +26,12 @@ public class Steps {
 		stepSegments.get(stepSegments.size() - 1).add(stepData);
 	}
 	
-	public double sum() {
-		return process(new SumHelper());
-	}
-	
-	public double average() {
-		int count = 0;
-		double sum = 0.0;
-		for (List<StepData> segment : stepSegments) {
-			for (StepData step : segment) {
-				sum += step.count;
-				count += step.seconds;
-			}
-		}
-		return sum / count;
-	}
-	
+	/*
+	 * Generell metode for å prosessere data.
+	 * Rollen til metoden er å gå gjennom alle målingsobjektene.
+	 * Det er ProcessHelper-objektet som gjør selve analysen,
+	 * ved å akkumulere informasjon over alle målingene.
+	 */
 	public double process(ProcessHelper helper) {
 		for (List<StepData> segment : stepSegments) {
 			for (StepData step : segment) {
@@ -42,5 +40,4 @@ public class Steps {
 		}
 		return helper.getResult();
 	}
-	double result = process(new SumHelper());
 }

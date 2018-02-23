@@ -1,5 +1,9 @@
-package interfaceeksempler;
+package interfaceeksempler1;
 
+/*
+ * Klasse som hjelper process-metoden i Steps med å akkumulere steg.
+ * Implementerer ProcessHelper-grensesnittet på sin egen måte.
+ */
 public class SumHelper implements ProcessHelper {
 
 	private double sum = 0.0;

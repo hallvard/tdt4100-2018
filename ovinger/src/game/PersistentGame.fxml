@@ -8,7 +8,7 @@
 <?import javafx.shape.*?>
 
 
-<VBox spacing="15" style="-fx-padding: 20px 20px 20px 20px" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="interfaces.GameController">
+<VBox spacing="15" style="-fx-padding: 20px 20px 20px 20px" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="game.PersistentGameController">
 	<HBox spacing="10" alignment="CENTER">
 	   <Label text="Input" />
 	   <TextField fx:id="inputField" />

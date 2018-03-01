@@ -3,6 +3,8 @@ package funksjoner;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.function.Function;
+import java.util.function.Predicate;
 
 public class PersonReg {
 
@@ -12,9 +14,19 @@ public class PersonReg {
 		people.addAll(Arrays.asList(persons));
 	}
 	
-	public Person findPerson(String name) {
+	public Person findPerson(Predicate<Person> tester) {
 		for (Person person : people) {
-			if (name.equals(person.getFullName())) {
+			if (tester.test(person)) {
+				return person;
+			}
+		}
+		return null;
+	}
+
+	public Person findPerson(String s, Function<Person, String> fun) {
+		for (Person person : people) {
+			String val = fun.apply(person);
+			if (val == s || (val != null && val.equals(s))) {
 				return person;
 			}
 		}
@@ -43,6 +55,8 @@ public class PersonReg {
 		jens.setEmail("jenstraetteberg@gmail.com");
 
 		PersonReg reg = new PersonReg(hallvard, marit, jens, jens);
-		System.out.println(reg.findPerson("Hallvard Trætteberg"));
+		
+		System.out.println(reg.findPerson(person -> person.getGivenName().equals("Hallvard")));
+		System.out.println(reg.findPerson("Hallvard", person -> person.getGivenName()));
 	}
 }

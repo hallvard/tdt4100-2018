@@ -3,6 +3,7 @@ package funksjoner;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
@@ -32,6 +33,12 @@ public class PersonReg {
 		}
 		return null;
 	}
+
+	public void forEach(Consumer<Person> consumer) {
+		for (Person person : people) {
+			consumer.accept(person);
+		}
+	}
 	
 	public static void main(String[] args) {
 		Person hallvard = new Person();
@@ -54,9 +61,14 @@ public class PersonReg {
 		jens.setFamilyName("Trætteberg");
 		jens.setEmail("jenstraetteberg@gmail.com");
 
-		PersonReg reg = new PersonReg(hallvard, marit, jens, jens);
+		PersonReg reg = new PersonReg(hallvard, marit, jens, anne);
 		
 		System.out.println(reg.findPerson(person -> person.getGivenName().equals("Hallvard")));
 		System.out.println(reg.findPerson("Hallvard", person -> person.getGivenName()));
+		System.out.println(reg.findPerson("Hallvard", Person::getGivenName));
+		System.out.println(reg.findPerson("hal@ntnu.no", Person::getEmail));
+		
+		reg.forEach(person -> System.out.println(person));
+		reg.forEach(System.out::println);
 	}
 }

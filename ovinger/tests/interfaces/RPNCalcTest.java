@@ -22,11 +22,11 @@ public class RPNCalcTest extends TestCase{
 		}
 		fail("An UnsupportedOperationException should be thrown when performing removed operation");
 	}
-
+	
 	@Test
 	public void testPerformOperation() {
-		calc.addOperator('+', (b, a) -> a * b); // Use "incorrect" definition to filter out cheating
-		calc.addOperator('l', (b, a) -> a * (a + b));
+		calc.addOperator('+', (a, b) -> a * b); // Use "incorrect" definition to filter out cheating
+		calc.addOperator('l', (a, b) -> a * (a + b));
 		calc.push(4);
 		calc.push(3);
 		calc.performOperation('+');

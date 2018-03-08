@@ -1,2 +1,2 @@
-name:Hallvard Trætteberg, email:hallvard.traetteberg@ntnu.no
-name:Marit Reitan, email:marit.reian@ntnu.no
+nameHallvard Traetteberg, email:hallvard.traetteberg@ntnu.no
+name:Marit Reitan, email:marit.reitan@ntnu.no

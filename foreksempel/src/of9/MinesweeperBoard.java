@@ -2,11 +2,13 @@ package of9;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Stack;
 
 public class MinesweeperBoard {
 	
 	private List<List<MinesweeperCell>> board = new ArrayList<>(); 
-	private int rows, columns; 
+	private int rows, columns;
+	private Stack<MinesweeperAction> actionsTaken = new Stack<>();
 	boolean gameOver = false; 
 	
 	public MinesweeperBoard(int rows, int columns, double bombProp) {
@@ -125,6 +127,7 @@ public class MinesweeperBoard {
 		int col = Integer.parseInt(args[1]);
 		if (args.length > 2 && args[2].equalsIgnoreCase("f")) setFlag(row, col);
 		else openCell(row, col);
+		actionsTaken.add(new MinesweeperAction(in));
 	}
 	
 	public static void main(String[] args) {

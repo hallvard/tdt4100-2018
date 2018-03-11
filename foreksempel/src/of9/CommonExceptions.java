@@ -35,9 +35,17 @@ public class CommonExceptions {
 	
 	public static void main(String[] args) throws IOException {
 		String s = "Hei";
-		// classCast(s);
+		try{
+			classCast(s);
+		} catch (ClassCastException e) {
+			
+		} catch (Exception e) {
+			System.out.println("dfdsaf");
+		} finally {
+			
+		}
 		// indexOutOfBounds();
-		// io();
+		io();
 		// thisOnlyWorksWithPositiveNumbers(-4);
 		// io2();
 		System.out.println(CommonExceptions.class.getResource("/of9/file.txt").getPath());

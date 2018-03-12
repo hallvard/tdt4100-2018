@@ -9,6 +9,16 @@ public class StringLettersIterator implements Iterator<Character> {
 	
 	public StringLettersIterator(String s) {
 		this.s = s;
+		windToLetter();
+	}
+	
+	private void windToLetter() {
+		while (pos < s.length()) {
+			if (Character.isLetter(s.charAt(pos))) {
+				break;
+			}
+			pos = pos + 1;
+		}
 	}
 	
 	@Override
@@ -20,6 +30,7 @@ public class StringLettersIterator implements Iterator<Character> {
 	public Character next() {
 		char next = s.charAt(pos);
 		pos = pos + 1;
+		windToLetter();
 		return next;
 	}
 }

@@ -1,7 +1,5 @@
 package observable;
 
-import javafx.scene.paint.Color;
-
 public interface IdolFan {
-	void idolHairChanged(Color hairColor);
+	void idolChanged(Idol idol, String propertyName, Object oldValue, Object newValue);
 }

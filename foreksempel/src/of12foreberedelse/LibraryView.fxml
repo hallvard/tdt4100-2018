@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="of12foreberedelse.LibraryController">
+   <children>
+      <TableView fx:id="bookTable" prefHeight="200.0" prefWidth="487.0" />
+      <Button layoutX="14.0" layoutY="234.0" mnemonicParsing="false" text="Add new book" onAction="#add" />
+      <Button layoutX="153.0" layoutY="233.0" mnemonicParsing="false" text="Borrow" onAction="#borrow" />
+   </children>
+</AnchorPane>

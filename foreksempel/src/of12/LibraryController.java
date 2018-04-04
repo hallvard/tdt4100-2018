@@ -1,14 +1,15 @@
 package of12;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 
-public class LibraryController {
+public class LibraryController implements LibraryListener {
 	private Library library;
 	@FXML
 	private TableView<List<String>> bookTable;
@@ -52,5 +53,16 @@ public class LibraryController {
 		List<String> selected = bookTable.getSelectionModel().getSelectedItems().get(0);
 		Book b = new Book(selected.get(0), selected.get(1));
 		library.borrow(null, b);
+	}
+
+	@Override
+	public void libraryChanged(int type, Library l) {
+		if (type != LibraryListener.BOOKS) return;
+		this.library = library;
+		List<List<String>> strings = new ArrayList<>();
+		for (Book b : l.getBooks().getFiltered(a -> true)) {
+			strings.add(Arrays.asList(b.getTitle(), b.getAuthor(), String.valueOf(l.getBooks().getFreeCount(b)), String.valueOf(l.getBooks().getCount(b))));
+		}
+		bookTable.getItems().setAll(strings);
 	}
 }

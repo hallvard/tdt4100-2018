@@ -14,7 +14,7 @@ public class Point2d {
 
 	@Override
 	public boolean equals(final Object obj) {
-		if (! (obj instanceof Point2d)) {
+		if (this.getClass() != obj.getClass()) {
 			return false;
 		}
 		final Point2d other = (Point2d) obj;
@@ -23,6 +23,6 @@ public class Point2d {
 
 	public static void main(final String[] args) {
 		final Collection<Point2d> points = Arrays.asList(new Point2d(1, 2), new Point2d(3, 4));
-		System.out.println(points.contains(new Point2d(3, 5)));
+		System.out.println(points.contains(new Point3d(1, 2, 3)));
 	}
 }

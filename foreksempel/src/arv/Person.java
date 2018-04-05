@@ -21,7 +21,7 @@ public class Person {
 		for (int i = 0; i < name.length(); i++) {
 			final char c = name.charAt(i);
 			if (! (Character.isLetter(c) || " -".indexOf(c) >= 0)) {
-				throw new IllegalArgumentException(name + " is an illegal name");
+				throw new NameValidationException(this, name);
 			}
 		}
 	}

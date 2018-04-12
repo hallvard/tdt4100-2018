@@ -17,12 +17,16 @@ public class Bok extends Object {
 		return tittel;
 	}
 
-	private static String validCharacters = " -,.%";
+	private String specialCharacters = " -,.%";
+
+	public String getSpecialCharacters() {
+		return specialCharacters;
+	}
 
 	public boolean isValidTittel(final String tittel) {
 		for (int i = 0; i < tittel.length(); i++) {
 			final char c = tittel.charAt(i);
-			if (! (Character.isLetter(c) || Character.isDigit(c) || validCharacters.indexOf(c) >= 0)) {
+			if (! (Character.isLetter(c) || Character.isDigit(c) || getSpecialCharacters().indexOf(c) >= 0)) {
 				return false;
 			}
 		}

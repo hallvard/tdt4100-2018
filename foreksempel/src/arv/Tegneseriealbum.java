@@ -4,6 +4,18 @@ public class Tegneseriealbum extends Bok {
 
 	private int antallStriper;
 
+	public Tegneseriealbum(final String tittel, final int antallStriper) {
+		super(tittel);
+		this.antallStriper = antallStriper;
+	}
+
+	private String specialCharacters = "# $%&/()=)(";
+
+	@Override
+	public String getSpecialCharacters() {
+		return specialCharacters;
+	}
+
 	@Override
 	public String toString() {
 		return "[Tegneseriealbum tittel=" + getTittel() + " antallStriper=" + antallStriper + "]";
@@ -18,9 +30,7 @@ public class Tegneseriealbum extends Bok {
 	}
 
 	public static void main(final String[] args) {
-		final Tegneseriealbum album = new Tegneseriealbum();
-		album.setTittel("Flat firer");
-		album.setAntallStriper(128);
+		final Tegneseriealbum album = new Tegneseriealbum("Flat firer", 128);
 		System.out.println(album);
 	}
 }

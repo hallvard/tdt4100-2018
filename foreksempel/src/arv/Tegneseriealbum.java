@@ -9,16 +9,24 @@ public class Tegneseriealbum extends Bok {
 		this.antallStriper = antallStriper;
 	}
 
-	private String specialCharacters = "# $%&/()=)(";
+	private String specialCharacters;
 
 	@Override
 	public String getSpecialCharacters() {
+		if (specialCharacters == null) {
+			this.specialCharacters = "# $%&/()=)(";
+		}
 		return specialCharacters;
 	}
 
 	@Override
-	public String toString() {
-		return "[Tegneseriealbum tittel=" + getTittel() + " antallStriper=" + antallStriper + "]";
+	protected String getSjanger() {
+		return "Tegneseriealbum";
+	}
+
+	@Override
+	protected String getToStringAttributes() {
+		return super.getToStringAttributes() + " antallStriper=" + antallStriper;
 	}
 
 	public int getAntallStriper() {

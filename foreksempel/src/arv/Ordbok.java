@@ -10,10 +10,14 @@ public class Ordbok extends Bok {
 	private int antallOrd;
 
 	@Override
-	public String toString() {
-		return "[Ordbok tittel=" + getTittel()  + " antallOrd=" + antallOrd + "]";
+	protected String getSjanger() {
+		return "Ordbok";
 	}
 
+	protected String getToStringAttributes() {
+		return super.getToStringAttributes() + " antallOrd=" + antallOrd;
+	}
+	
 	@Override
 	public boolean isValidTittel(final String tittel) {
 		if (! super.isValidTittel(tittel)) {

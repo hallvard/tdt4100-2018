@@ -1,18 +1,25 @@
 package arv;
 
-public class Bok extends Object {
+public abstract class Bok extends Object {
 
 	private String tittel;
 
 	public Bok(final String tittel) {
+		specialCharacters = " -,.%";
 		setTittel(tittel);
 	}
 
 	@Override
 	public String toString() {
-		return "[Bok tittel=" + tittel + "]";
+		return "[" + getSjanger() + " " + getToStringAttributes() + "]";
 	}
 
+	protected abstract String getSjanger();
+
+	protected String getToStringAttributes() {
+		return "tittel=" + tittel;
+	}
+	
 	public String getTittel() {
 		return tittel;
 	}
@@ -41,7 +48,7 @@ public class Bok extends Object {
 	}
 
 	public static void main(final String[] args) {
-		final Bok bok = new Bok("Lasso rundt fru Luna");
-		System.out.println(bok);
+//		final Bok bok = new Bok("Lasso rundt fru Luna");
+//		System.out.println(bok);
 	}
 }

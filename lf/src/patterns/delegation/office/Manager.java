@@ -8,8 +8,7 @@ import java.util.function.BinaryOperator;
 public class Manager implements Employee {
 
 	private List<Employee> employees;
-	private int taskCount = 0;
-
+	
 	public Manager(Collection<Employee> employees) {
 		if (employees.isEmpty()) {
 			throw new IllegalArgumentException("A Manager must have someone to delegate to!");
@@ -18,9 +17,9 @@ public class Manager implements Employee {
 	}
 
 	private Employee getTaskDelegate() {
-		return this.employees.get(taskCount++ % employees.size());
+		return this.employees.get(this.getTaskCount() % employees.size());
 	}
-
+	
 	@Override
 	public double doCalculations(BinaryOperator<Double> operation, double value1, double value2) {
 		return getTaskDelegate().doCalculations(operation, value1, value2);
@@ -28,12 +27,21 @@ public class Manager implements Employee {
 
 	@Override
 	public void printDocument(String document) {
+		
 		getTaskDelegate().printDocument(document);
 	}
 
 	@Override
 	public int getTaskCount() {
-		return taskCount;
+		//Ved hjelp av streams
+		return employees.stream().mapToInt(employee->employee.getTaskCount()).sum(); 
+		/*Tradisjonell metode
+		 int task = 0; 
+		 for(Employee e: employees) {
+		 	task += e.getTaskCount(); 
+		 }
+		 return task; 
+		 */
 	}
 
 	@Override

@@ -3,11 +3,29 @@ package eksamensforelesning2018;
 public class Account {
 	
 	private int money ; 
-	private static double rente; 
+	private double rente; 
+	private static int accountCounter = 0; 
+	private int id ; 
+	private Person owner ; 
 	
 	public Account(int money, double rente) {
 		this.money = money ; 
 		this.rente = rente ; 
+		this.id = accountCounter++; 
+	}
+	
+	public void setOwner(Person p) {
+		if(owner==p) {
+			return; 
+		}
+		Person oldOwner = owner ; 
+		owner = p; 
+		if(p!= null) {
+			p.addAccount(this);
+		}
+		if(oldOwner!= null) {
+			oldOwner.removeAccount(this);
+		}
 	}
 	
 	public boolean checkNotNegative(int amount) {
@@ -61,6 +79,6 @@ public class Account {
 	
 	public static void main(String[] args) {
 		Account acc = new Account(); 
-		Account.checkNotNegative(-50); 
+		
 	}
 }

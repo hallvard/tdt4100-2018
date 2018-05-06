@@ -7,6 +7,8 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 public class Bank implements Iterable<Account>{
 	
@@ -43,11 +45,14 @@ public class Bank implements Iterable<Account>{
 	
 	
 	public int getTotalAmountOfMoneyInBank() {
+		return accounts.stream().mapToInt(a->a.getMoney()).sum(); 
+		/*
 		int total = 0; 
 		for(Account acc: accounts) {
 			total += acc.getMoney(); 
 		}
 		return total; 
+		*/
 	}
 	
 	public void deposit(Account acc, int amount) {
@@ -55,6 +60,11 @@ public class Bank implements Iterable<Account>{
 			acc.deposit(amount);
 		}
 	}
+	public List<Person> getCustomers() {
+	
+		return accounts.stream().map(account->account.getOwner()).distinct().collect(Collectors.toList());
+	}
+	
 	public List<Account> getMyAccounts(Person p) {
 		List<Account> a = new ArrayList<Account>(); 
 		for(Account accs: accounts) {
@@ -64,6 +74,25 @@ public class Bank implements Iterable<Account>{
 		}
 		return a; 
 	}
+	public List<Account> getAccountsWithMoreMoneyThan(int amount) {
+		Predicate<Account> pred = new Predicate() {
+
+			@Override
+			public boolean test(Object t) {
+				return t.getMoney()>amount ;
+			}
+		}
+		return accounts.stream().filter(a->a.getMoney()>amount).collect(Collectors.toList());
+		/*
+		  List<Account> accs ; 
+		  for(Account a: accounts) {
+			 if(a.getMoney()>amount) {
+				 accs.add(a);
+			 }
+		 }
+		 return accs ; 
+		 */
+	}
 
 	public void withdraw(Account acc, int amount) {
 		acc.withdraw(amount);
@@ -72,9 +101,11 @@ public class Bank implements Iterable<Account>{
 	public static void main(String[] args) {
 		Person henrik = new Person("henrik"); 
 		Person vegard = new Person("vegard"); 
-		Account brukskonto = new Account(1500); 
+		Account brukskonto = new Account(2000); 
 		Account sparekonto = new Account(2000); 
 		Account regningskonto = new Account(5);
+		
+		
 		
 		henrik.addAccount(regningskonto);
 		vegard.addAccount(brukskonto);
@@ -85,14 +116,17 @@ public class Bank implements Iterable<Account>{
 		bank.addAccount(regningskonto);
 		bank.addAccount(brukskonto);
 		bank.addAccount(sparekonto);
+		bank.addAccount(new Account(500));
+		bank.addAccount(new Account(10000));
+		bank.addAccount(new Account(850));
 		
+		System.out.println(bank.accounts);
 		
-		RichAccountIterator it = new RichAccountIterator(bank.accounts, 1000);
+		bank.accounts.sort((o1, o2) -> o1.getMoney()-o2.getMoney());
+		System.out.println(bank.accounts);
+
 		
-		while(it.hasNext()) {
-			System.out.println(it.next());
-		}
-		//System.out.println(bank.getTotalAmountOfMoneyInBank()); 
+
 
 	}
 

@@ -1,6 +1,6 @@
 package eksamensforelesning2018;
 
-public class Account {
+public class Account implements Comparable<Account>{
 	
 	private int money ; 
 	private double rente; 
@@ -28,7 +28,7 @@ public class Account {
 		}
 	}
 	
-	public boolean checkNotNegative(int amount) {
+	public static boolean checkNotNegative(int amount) {
 		if (amount<0) {
 			return false;  
 		}
@@ -87,5 +87,12 @@ public class Account {
 	public static void main(String[] args) {
 		Account acc = new Account(); 
 		
+	}
+
+	public int compareTo(Account o) {
+		//Returnere et positivt tall, hvis dette objekter er større
+		//0 Hvis de er like
+		//Et negativt tall hvis dette objektet er mindre
+		return this.getMoney()-o.getMoney();
 	}
 }

@@ -73,7 +73,6 @@ public class Person {
 		Account brukskonto = new Account(1000); 
 		Account sparekonto = new Account(500); 
 		Account regningskonto = new Account(5);
-		
 		henrik.addAccount(brukskonto);
 		System.out.println(brukskonto);
 		vegard.addAccount(brukskonto);

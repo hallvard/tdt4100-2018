@@ -77,6 +77,13 @@ public class Account {
 		}
 	}
 	
+	public String toString() {
+		return money +": " + owner; 
+	}
+	
+	public Person getOwner() {
+		return owner; 
+	}
 	public static void main(String[] args) {
 		Account acc = new Account(); 
 		

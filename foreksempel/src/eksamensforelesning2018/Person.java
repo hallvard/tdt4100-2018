@@ -1,5 +1,6 @@
 package eksamensforelesning2018;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Person {
@@ -14,17 +15,17 @@ public class Person {
 	
 	}
 	public Person(String name) {
-		this.name = name; 
+		this.name = name;
+		accounts = new ArrayList<Account>(); 
 	}
 	
 	public void addAccount(Account acc) {
 		if(accounts.contains(acc)) {
 			return ; 
 		}
-		if(acc == null) {
-			return; 
-		}
+		
 		accounts.add(acc);
+		
 		acc.setOwner(this);
 	}
 
@@ -62,9 +63,25 @@ public class Person {
 		this.name = name; 
 	}
 	
+	public String toString() {
+		return name; 
+	}
+	
 	public static void main(String[] args) {
-		long pnr = new Long("29079399999"); 
-		Person vegard = new Person("vegard", pnr); 
+		Person henrik = new Person("henrik"); 
+		Person vegard = new Person("vegard"); 
+		Account brukskonto = new Account(1000); 
+		Account sparekonto = new Account(500); 
+		Account regningskonto = new Account(5);
+		
+		henrik.addAccount(brukskonto);
+		System.out.println(brukskonto);
+		vegard.addAccount(brukskonto);
+		vegard.addAccount(sparekonto);
+		System.out.println(brukskonto);
+		System.out.println(sparekonto);
+		System.out.println(vegard.accounts); 
+
 	}
 	
 	

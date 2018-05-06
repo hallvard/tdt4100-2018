@@ -4,13 +4,14 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-public class Bank {
+public class Bank implements Iterable<Account>{
 	
-	private Collection<Account> accounts = new ArrayList<Account>(); 
-	private Map<Person, List<Account>> bank = new HashMap(); 
+	private List<Account> accounts = new ArrayList<Account>(); 
+	private Map<Person, Collection<Account>> bank = new HashMap<>(); 
 	
 	public void addAccount(Account acc) {
 		if(!accounts.contains(acc)) {
@@ -22,18 +23,20 @@ public class Bank {
 		accounts.remove(acc);
 	}
 	public void addAccount(Person p, Account a) {
-	
-		if(bank.containsKey(p)) {
-			bank.get(p).add(a);
-			return ;
-		}
-		bank.put(p, Arrays.asList(a));
 		
 		for(Person person: bank.keySet()) {
 			if(bank.get(person).contains(a)) {
 				bank.get(person).remove(a);
 			}
 		}
+		
+		if(bank.containsKey(p)) {
+			bank.get(p).add(a);
+			return ;
+		}
+		bank.put(p, Arrays.asList(a));
+		
+		
 		
 		
 	}
@@ -69,8 +72,8 @@ public class Bank {
 	public static void main(String[] args) {
 		Person henrik = new Person("henrik"); 
 		Person vegard = new Person("vegard"); 
-		Account brukskonto = new Account(1000); 
-		Account sparekonto = new Account(500); 
+		Account brukskonto = new Account(1500); 
+		Account sparekonto = new Account(2000); 
 		Account regningskonto = new Account(5);
 		
 		henrik.addAccount(regningskonto);
@@ -79,13 +82,24 @@ public class Bank {
 		
 		Bank bank = new Bank(); 
 		
-		//bank.addAccount(regningskonto);
+		bank.addAccount(regningskonto);
 		bank.addAccount(brukskonto);
 		bank.addAccount(sparekonto);
-	
 		
-		System.out.println(bank.getTotalAmountOfMoneyInBank()); 
+		
+		RichAccountIterator it = new RichAccountIterator(bank.accounts, 1000);
+		
+		while(it.hasNext()) {
+			System.out.println(it.next());
+		}
+		//System.out.println(bank.getTotalAmountOfMoneyInBank()); 
 
+	}
+
+	@Override
+	public Iterator<Account> iterator() {
+		// TODO Auto-generated method stub
+		return accounts.iterator(); 
 	}
 	
 	

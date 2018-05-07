@@ -1,15 +1,15 @@
 package eksamensforelesning2018;
 
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 public class Bank implements Iterable<Account>, ObservableBank{
@@ -70,17 +70,26 @@ public class Bank implements Iterable<Account>, ObservableBank{
 		return accounts.stream().map(account->account.getOwner()).distinct().collect(Collectors.toList());
 	}
 	
+	public boolean isCustomer(Person p) {
+		return accounts.stream().allMatch(a->a.getOwner()==p); 
+	}
+	
 	public List<Account> getMyAccounts(Person p) {
+		return accounts.stream().filter(a->a.getOwner()==p).collect(Collectors.toList());
+		/*
 		List<Account> a = new ArrayList<Account>(); 
 		for(Account accs: accounts) {
 			if(accs.getOwner()==p) {
 				a.add(accs); 
 			}
 		}
-		return a; 
+		return a; */
 	}
-	public List<Account> getAccountsWithMoreMoneyThan(int amount) {
 	
+	public List<Account> getAccountsWithMoreMoneyThan(int amount) {
+		
+	
+		
 		return accounts.stream().filter(account->account.getMoney()>amount).collect(Collectors.toList());
 		/*
 		  List<Account> accs ; 
@@ -112,9 +121,9 @@ public class Bank implements Iterable<Account>, ObservableBank{
 	public static void main(String[] args) {
 		Person henrik = new Person("henrik"); 
 		Person vegard = new Person("vegard"); 
-		Account brukskonto = new Account(2000); 
+		Account brukskonto = new Account(1500); 
 		Account sparekonto = new Account(2000); 
-		Account regningskonto = new Account(5);
+		Account regningskonto = new Account(1000);
 		
 		
 		henrik.addAccount(regningskonto);
@@ -127,12 +136,8 @@ public class Bank implements Iterable<Account>, ObservableBank{
 		bank.addAccount(brukskonto);
 		bank.addAccount(sparekonto);
 		
-		Employee willy = new Employee("Willy");
-		
-		
-		System.out.println(bank.applyForLoan(willy, 90000));
-		
-		
+		bank.accounts.sort((o1, o2)->o1.getMoney()-o2.getMoney());
+		bank.getAccountsWithMoreMoneyThan(1800);
 		
 		
 		/*

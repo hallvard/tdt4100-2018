@@ -1,6 +1,8 @@
 package eksamensforelesning2018;
 
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -96,6 +98,17 @@ public class Bank implements Iterable<Account>, ObservableBank{
 		this.fireTransactionHappened(acc, amount);
 	}
 	
+	public boolean applyForLoan(Person p, int salary) {
+		if(salary>600000 || p instanceof Employee) {
+			if(p instanceof Employee) {
+				((Employee) p).sayHello();
+			}
+			return true; 
+		}
+		return false; 
+	}
+
+	
 	public static void main(String[] args) {
 		Person henrik = new Person("henrik"); 
 		Person vegard = new Person("vegard"); 
@@ -113,8 +126,16 @@ public class Bank implements Iterable<Account>, ObservableBank{
 		bank.addAccount(regningskonto);
 		bank.addAccount(brukskonto);
 		bank.addAccount(sparekonto);
-
 		
+		Employee willy = new Employee("Willy");
+		
+		
+		System.out.println(bank.applyForLoan(willy, 90000));
+		
+		
+		
+		
+		/*
 		BankListener skatt = new Skatteetaten(10000); 
 		
 		bank.addListener(skatt);
@@ -128,7 +149,7 @@ public class Bank implements Iterable<Account>, ObservableBank{
 		bank.save("teeest.txt");
 		bank.load("teeest.txt");
 		System.out.println(bank.accounts);
-
+		*/
 		
 
 		
@@ -165,6 +186,7 @@ public class Bank implements Iterable<Account>, ObservableBank{
 	
 	public void save(String filename){
 		try {
+		
 		io.save(filename, accounts);
 		}
 		catch(FileNotFoundException e) {

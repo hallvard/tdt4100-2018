@@ -75,14 +75,8 @@ public class Bank implements Iterable<Account>{
 		return a; 
 	}
 	public List<Account> getAccountsWithMoreMoneyThan(int amount) {
-		Predicate<Account> pred = new Predicate() {
-
-			@Override
-			public boolean test(Object t) {
-				return t.getMoney()>amount ;
-			}
-		}
-		return accounts.stream().filter(a->a.getMoney()>amount).collect(Collectors.toList());
+	
+		return accounts.stream().filter(account->account.getMoney()>amount).collect(Collectors.toList());
 		/*
 		  List<Account> accs ; 
 		  for(Account a: accounts) {
@@ -106,7 +100,6 @@ public class Bank implements Iterable<Account>{
 		Account regningskonto = new Account(5);
 		
 		
-		
 		henrik.addAccount(regningskonto);
 		vegard.addAccount(brukskonto);
 		vegard.addAccount(sparekonto);
@@ -120,6 +113,11 @@ public class Bank implements Iterable<Account>{
 		bank.addAccount(new Account(10000));
 		bank.addAccount(new Account(850));
 		
+		for(Account acc: bank) {
+			
+		}
+
+		
 		System.out.println(bank.accounts);
 		
 		bank.accounts.sort((o1, o2) -> o1.getMoney()-o2.getMoney());
@@ -132,7 +130,6 @@ public class Bank implements Iterable<Account>{
 
 	@Override
 	public Iterator<Account> iterator() {
-		// TODO Auto-generated method stub
 		return accounts.iterator(); 
 	}
 	

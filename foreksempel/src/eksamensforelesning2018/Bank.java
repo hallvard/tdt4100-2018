@@ -10,10 +10,11 @@ import java.util.Map;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
-public class Bank implements Iterable<Account>{
+public class Bank implements Iterable<Account>, ObservableBank{
 	
 	private List<Account> accounts = new ArrayList<Account>(); 
 	private Map<Person, Collection<Account>> bank = new HashMap<>(); 
+	private Collection<BankListener> lyttere = new ArrayList<>(); 
 	
 	public void addAccount(Account acc) {
 		if(!accounts.contains(acc)) {
@@ -58,6 +59,8 @@ public class Bank implements Iterable<Account>{
 	public void deposit(Account acc, int amount) {
 		if(accounts.contains(acc)) {
 			acc.deposit(amount);
+			this.fireTransactionHappened(acc, amount);
+
 		}
 	}
 	public List<Person> getCustomers() {
@@ -90,6 +93,7 @@ public class Bank implements Iterable<Account>{
 
 	public void withdraw(Account acc, int amount) {
 		acc.withdraw(amount);
+		this.fireTransactionHappened(acc, amount);
 	}
 	
 	public static void main(String[] args) {
@@ -113,15 +117,13 @@ public class Bank implements Iterable<Account>{
 		bank.addAccount(new Account(10000));
 		bank.addAccount(new Account(850));
 		
-		for(Account acc: bank) {
-			
-		}
-
+		BankListener skatt = new Skatteetaten(10000); 
 		
-		System.out.println(bank.accounts);
+		bank.addListener(skatt);
 		
-		bank.accounts.sort((o1, o2) -> o1.getMoney()-o2.getMoney());
-		System.out.println(bank.accounts);
+		bank.deposit(brukskonto, 2000);
+		bank.deposit(sparekonto, 90000000);
+		bank.withdraw(sparekonto, 4);
 
 		
 
@@ -131,6 +133,26 @@ public class Bank implements Iterable<Account>{
 	@Override
 	public Iterator<Account> iterator() {
 		return accounts.iterator(); 
+	}
+
+	@Override
+	public void addListener(BankListener listener) {
+		if (!lyttere.contains(listener)) {
+			lyttere.add(listener); 
+		}
+	}
+
+	@Override
+	public void removeListener(BankListener listener) {
+		lyttere.remove(listener); 
+		
+	}
+
+	@Override
+	public void fireTransactionHappened(Account acc, int amount) {
+		for(BankListener listener: lyttere) {
+			listener.transactionHappened(acc, amount);
+		}
 	}
 	
 	

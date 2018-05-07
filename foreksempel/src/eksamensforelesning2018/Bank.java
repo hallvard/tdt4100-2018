@@ -1,5 +1,6 @@
 package eksamensforelesning2018;
 
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -7,7 +8,6 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 public class Bank implements Iterable<Account>, ObservableBank{
@@ -15,7 +15,7 @@ public class Bank implements Iterable<Account>, ObservableBank{
 	private List<Account> accounts = new ArrayList<Account>(); 
 	private Map<Person, Collection<Account>> bank = new HashMap<>(); 
 	private Collection<BankListener> lyttere = new ArrayList<>(); 
-	
+	private BankIO io = new BankIO() ; 
 	public void addAccount(Account acc) {
 		if(!accounts.contains(acc)) {
 			accounts.add(acc);
@@ -113,9 +113,7 @@ public class Bank implements Iterable<Account>, ObservableBank{
 		bank.addAccount(regningskonto);
 		bank.addAccount(brukskonto);
 		bank.addAccount(sparekonto);
-		bank.addAccount(new Account(500));
-		bank.addAccount(new Account(10000));
-		bank.addAccount(new Account(850));
+
 		
 		BankListener skatt = new Skatteetaten(10000); 
 		
@@ -124,6 +122,14 @@ public class Bank implements Iterable<Account>, ObservableBank{
 		bank.deposit(brukskonto, 2000);
 		bank.deposit(sparekonto, 90000000);
 		bank.withdraw(sparekonto, 4);
+		System.out.println(bank.accounts);
+		
+		
+		bank.save("teeest.txt");
+		bank.load("teeest.txt");
+		System.out.println(bank.accounts);
+
+		
 
 		
 
@@ -150,9 +156,26 @@ public class Bank implements Iterable<Account>, ObservableBank{
 
 	@Override
 	public void fireTransactionHappened(Account acc, int amount) {
+		
 		for(BankListener listener: lyttere) {
 			listener.transactionHappened(acc, amount);
 		}
+		//lyttere.stream().forEach(l->l.transactionHappened(acc, amount));
+	}
+	
+	public void save(String filename){
+		try {
+		io.save(filename, accounts);
+		}
+		catch(FileNotFoundException e) {
+			e.getStackTrace();
+			
+			System.out.println("dritt..");
+		}
+	}
+	
+	public void load(String filename) {
+		this.accounts = io.load(filename);
 	}
 	
 	

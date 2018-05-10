@@ -2,6 +2,8 @@ package interfaces;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
+import java.util.function.Predicate;
 
 public class CardDeck implements CardContainer {
 
@@ -32,14 +34,14 @@ public class CardDeck implements CardContainer {
 	public int getCardCount() {
 		return cards.size();
 	}
-
+	
 	public Card getCard(int i) {
 		if (i < 0 || i >= getCardCount()) {
 			throw new IllegalArgumentException(String.format("%s is an illegal card index, when the size of the deck is %s", i, getCardCount()));
 		}
 		return cards.get(i);
 	}
-
+	
 	public void shufflePerfectly() {
 		int halfSize = cards.size() / 2;
 		for (int i = 0; i < halfSize; i++) {
@@ -49,9 +51,42 @@ public class CardDeck implements CardContainer {
 	}
 
 	// Iterable<Card> in CardContainer<Card>
-
+	
 	@Override
 	public Iterator<Card> iterator() {
 		return cards.iterator();
 	}
+	
+	// methods using Predicate<Card>
+
+	public boolean hasCard(Predicate<Card> p) {
+		for (Card card: cards) {
+			if (p.test(card)) {
+				return true; 
+			}
+		}
+		return false; 
+	}
+	
+	public int getCardCount(Predicate<Card> p) {
+		int count = 0; 
+		for (Card card : cards) {
+			if (p.test(card)) {
+				count++;
+			}
+		}
+		return count; 
+	}
+	
+	public List<Card> getCards(Predicate<Card> p) {
+		List<Card> matchingCards = new ArrayList<Card>();
+		for (Card card : cards) {
+			if (p.test(card)) {
+				matchingCards.add(card);
+			}
+		}
+		return matchingCards; 	
+	}
+
 }
+
